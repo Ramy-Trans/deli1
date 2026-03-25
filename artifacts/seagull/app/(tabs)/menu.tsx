@@ -77,9 +77,7 @@ function ProductRowItem({ product, index }: ProductRowItemProps) {
             }}
             style={styles.rowImage}
             contentFit="cover"
-            transition={200}
-            cachePolicy="memory-disk"
-            priority="normal"
+            cachePolicy="none"
           />
         ) : (
           <LinearGradient

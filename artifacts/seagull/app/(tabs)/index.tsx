@@ -173,9 +173,7 @@ function AnimatedProductCard({ product, index }: AnimatedProductCardProps) {
               }}
               style={styles.productImage}
               contentFit="cover"
-              transition={200}
-              cachePolicy="memory-disk"
-              priority="normal"
+              cachePolicy="none"
               onError={() => setImgError(true)}
             />
           ) : (

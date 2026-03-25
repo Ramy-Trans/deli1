@@ -3,6 +3,7 @@ import {
   View, Text, StyleSheet, FlatList, TouchableOpacity,
   ActivityIndicator, RefreshControl,
 } from "react-native";
+import { Image } from "expo-image";
 import { Stack, useRouter } from "expo-router";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { LinearGradient } from "expo-linear-gradient";
@@ -104,10 +105,19 @@ export default function FavoritesScreen() {
               onPress={() => router.push(`/product/${item.id}`)}
               activeOpacity={0.85}
             >
-              <LinearGradient
-                colors={["#0A2040", "#1A6FA8"]}
-                style={styles.cardImage}
-              />
+              {item.imageUrl ? (
+                <Image
+                  source={{ uri: item.imageUrl.startsWith("http") ? item.imageUrl : `https://${process.env.EXPO_PUBLIC_DOMAIN}${item.imageUrl}` }}
+                  style={styles.cardImage}
+                  contentFit="cover"
+                  cachePolicy="none"
+                />
+              ) : (
+                <LinearGradient
+                  colors={["#0A2040", "#1A6FA8"]}
+                  style={styles.cardImage}
+                />
+              )}
               <View style={styles.cardBody}>
                 <Text style={[styles.cardName, { color: colors.text }]} numberOfLines={1}>{getLocalizedName(item, lang)}</Text>
                 <Text style={[styles.cardDesc, { color: colors.textSecondary }]} numberOfLines={2}>{getLocalizedDesc(item, lang)}</Text>

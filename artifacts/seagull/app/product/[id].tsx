@@ -148,9 +148,7 @@ export default function ProductDetailScreen() {
               }}
               style={styles.productImage}
               contentFit="cover"
-              transition={300}
-              cachePolicy="memory-disk"
-              priority="high"
+              cachePolicy="none"
             />
           ) : (
             <LinearGradient
