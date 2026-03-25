@@ -10,8 +10,8 @@ import {
   TextInput,
   Platform,
   ActivityIndicator,
+  Image,
 } from "react-native";
-import { Image } from "expo-image";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { router } from "expo-router";
 import { Ionicons, MaterialCommunityIcons, Feather } from "@expo/vector-icons";
@@ -172,8 +172,7 @@ function AnimatedProductCard({ product, index }: AnimatedProductCardProps) {
                   : `https://${process.env.EXPO_PUBLIC_DOMAIN}${product.imageUrl}`,
               }}
               style={styles.productImage}
-              contentFit="cover"
-              cachePolicy="none"
+              resizeMode="cover"
               onError={() => setImgError(true)}
             />
           ) : (

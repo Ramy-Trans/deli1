@@ -15,7 +15,7 @@ import { router, useLocalSearchParams } from "expo-router";
 import { Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
 import Animated, { FadeIn } from "react-native-reanimated";
 import { LinearGradient } from "expo-linear-gradient";
-import { Image } from "expo-image";
+import { Image } from "react-native";
 import { useTheme } from "@/context/ThemeContext";
 import { useCart } from "@/context/CartContext";
 import { useFavorites } from "@/context/FavoritesContext";
@@ -76,8 +76,7 @@ function ProductRowItem({ product, index }: ProductRowItemProps) {
                 : `https://${process.env.EXPO_PUBLIC_DOMAIN}${product.imageUrl}`,
             }}
             style={styles.rowImage}
-            contentFit="cover"
-            cachePolicy="none"
+            resizeMode="cover"
           />
         ) : (
           <LinearGradient

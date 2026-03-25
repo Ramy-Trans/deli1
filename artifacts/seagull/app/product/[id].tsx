@@ -7,8 +7,8 @@ import {
   ScrollView,
   Dimensions,
   Platform,
+  Image,
 } from "react-native";
-import { Image } from "expo-image";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { router, useLocalSearchParams } from "expo-router";
 import { Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
@@ -147,8 +147,7 @@ export default function ProductDetailScreen() {
                   : `https://${process.env.EXPO_PUBLIC_DOMAIN}${product.imageUrl}`,
               }}
               style={styles.productImage}
-              contentFit="cover"
-              cachePolicy="none"
+              resizeMode="cover"
             />
           ) : (
             <LinearGradient

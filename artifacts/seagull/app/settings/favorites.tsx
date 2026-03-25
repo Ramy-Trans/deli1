@@ -1,9 +1,8 @@
 import React, { useEffect, useState, useCallback } from "react";
 import {
   View, Text, StyleSheet, FlatList, TouchableOpacity,
-  ActivityIndicator, RefreshControl,
+  ActivityIndicator, RefreshControl, Image,
 } from "react-native";
-import { Image } from "expo-image";
 import { Stack, useRouter } from "expo-router";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { LinearGradient } from "expo-linear-gradient";
@@ -109,8 +108,7 @@ export default function FavoritesScreen() {
                 <Image
                   source={{ uri: item.imageUrl.startsWith("http") ? item.imageUrl : `https://${process.env.EXPO_PUBLIC_DOMAIN}${item.imageUrl}` }}
                   style={styles.cardImage}
-                  contentFit="cover"
-                  cachePolicy="none"
+                  resizeMode="cover"
                 />
               ) : (
                 <LinearGradient
