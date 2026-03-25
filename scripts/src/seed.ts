@@ -6,7 +6,14 @@ import {
   productVariantsTable,
   branchesTable,
   couponsTable,
+  usersTable,
 } from "@workspace/db/schema";
+import crypto from "crypto";
+import { eq } from "drizzle-orm";
+
+function hashPassword(pw: string): string {
+  return crypto.createHash("sha256").update(pw + "seagull_salt").digest("hex");
+}
 
 async function seed() {
   console.log("Seeding database...");
@@ -408,6 +415,36 @@ async function seed() {
       minOrderAmount: "150",
     },
   ]);
+
+  // Branch admin accounts
+  const branches = await db.select().from(branchesTable);
+  const branchAdmins = [
+    { area: "Zamalek",   email: "zamalek@seagull.com",   password: "Zamalek@Admin2025!",   name: "Zamalek Branch Admin",   phone: "+20100000001" },
+    { area: "Maadi",     email: "maadi@seagull.com",     password: "Maadi@Admin2025!",     name: "Maadi Branch Admin",     phone: "+20100000002" },
+    { area: "New Cairo", email: "newcairo@seagull.com",  password: "NewCairo@Admin2025!",  name: "New Cairo Branch Admin", phone: "+20100000003" },
+  ];
+  for (const admin of branchAdmins) {
+    const branch = branches.find(b => b.area === admin.area);
+    if (!branch) continue;
+    const existing = await db.select({ id: usersTable.id }).from(usersTable).where(eq(usersTable.email, admin.email)).limit(1);
+    if (existing.length === 0) {
+      await db.insert(usersTable).values({
+        name: admin.name,
+        phone: admin.phone,
+        email: admin.email,
+        passwordHash: hashPassword(admin.password),
+        role: "admin",
+        branchId: branch.id,
+        isActive: true,
+        preferredLanguage: "en",
+        darkMode: false,
+        loyaltyPoints: 0,
+      });
+      console.log(`Created admin for ${admin.area}: ${admin.email}`);
+    } else {
+      console.log(`Admin already exists for ${admin.area}: ${admin.email}`);
+    }
+  }
 
   console.log("Seeding complete!");
   process.exit(0);
