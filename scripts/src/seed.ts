@@ -20,42 +20,54 @@ async function seed() {
 
   // Branches
   await db.delete(branchesTable);
-  const [branch1, branch2] = await db
+  const branches = await db
     .insert(branchesTable)
     .values([
       {
-        name: "Sea Gull Zamalek",
-        nameAr: "سي غال الزمالك",
-        address: "26 Sharia Hassan Sabri, Zamalek",
-        area: "Zamalek",
-        city: "Cairo",
-        phone: "+20 2 2738-1234",
-        latitude: "30.0626",
-        longitude: "31.2197",
+        name: "Sea Gull Sheikh Zayed",
+        nameAr: "سي غال الشيخ زايد",
+        address: "Beverly Hills, Sheikh Zayed City",
+        area: "Sheikh Zayed",
+        city: "Giza",
+        phone: "+20 2 3827-1234",
+        latitude: "30.0444",
+        longitude: "30.9867",
         acceptsDelivery: true,
         acceptsPickup: true,
       },
       {
-        name: "Sea Gull Maadi",
-        nameAr: "سي غال المعادي",
-        address: "Road 9, Maadi",
-        area: "Maadi",
+        name: "Sea Gull Fifth Settlement",
+        nameAr: "سي غال التجمع الخامس",
+        address: "South Academy, Fifth Settlement",
+        area: "Fifth Settlement",
         city: "Cairo",
-        phone: "+20 2 2378-5678",
-        latitude: "29.9602",
-        longitude: "31.2569",
-        acceptsDelivery: true,
-        acceptsPickup: true,
-      },
-      {
-        name: "Sea Gull New Cairo",
-        nameAr: "سي غال القاهرة الجديدة",
-        address: "5th Settlement, New Cairo",
-        area: "New Cairo",
-        city: "Cairo",
-        phone: "+20 2 2618-9012",
+        phone: "+20 2 2618-5678",
         latitude: "30.0131",
         longitude: "31.4703",
+        acceptsDelivery: true,
+        acceptsPickup: true,
+      },
+      {
+        name: "Sea Gull Madinaty",
+        nameAr: "سي غال مدينتي",
+        address: "Madinaty Gate 1, New Cairo East",
+        area: "Madinaty",
+        city: "Cairo",
+        phone: "+20 2 2618-9012",
+        latitude: "30.1167",
+        longitude: "31.6500",
+        acceptsDelivery: true,
+        acceptsPickup: true,
+      },
+      {
+        name: "Sea Gull 6th of October",
+        nameAr: "سي غال السادس من أكتوبر",
+        address: "Waslet Dahshur Road, 6th of October City",
+        area: "6th of October",
+        city: "Giza",
+        phone: "+20 2 3829-3456",
+        latitude: "29.9697",
+        longitude: "30.9180",
         acceptsDelivery: true,
         acceptsPickup: true,
       },
@@ -417,14 +429,15 @@ async function seed() {
   ]);
 
   // Branch admin accounts
-  const branches = await db.select().from(branchesTable);
+  const allBranches = await db.select().from(branchesTable);
   const branchAdmins = [
-    { area: "Zamalek",   email: "zamalek@seagull.com",   password: "Zamalek@Admin2025!",   name: "Zamalek Branch Admin",   phone: "+20100000001" },
-    { area: "Maadi",     email: "maadi@seagull.com",     password: "Maadi@Admin2025!",     name: "Maadi Branch Admin",     phone: "+20100000002" },
-    { area: "New Cairo", email: "newcairo@seagull.com",  password: "NewCairo@Admin2025!",  name: "New Cairo Branch Admin", phone: "+20100000003" },
+    { area: "Sheikh Zayed",    email: "sheikzayed@seagull.com",      password: "SheikhZayed@Admin2025!",     name: "Sheikh Zayed Admin",     phone: "+20100000001" },
+    { area: "Fifth Settlement",email: "fifthsettlement@seagull.com", password: "FifthSettlement@Admin2025!", name: "Fifth Settlement Admin", phone: "+20100000002" },
+    { area: "Madinaty",        email: "madinaty@seagull.com",        password: "Madinaty@Admin2025!",        name: "Madinaty Admin",         phone: "+20100000003" },
+    { area: "6th of October",  email: "october@seagull.com",         password: "October@Admin2025!",         name: "6th of October Admin",   phone: "+20100000004" },
   ];
   for (const admin of branchAdmins) {
-    const branch = branches.find(b => b.area === admin.area);
+    const branch = allBranches.find(b => b.area === admin.area);
     if (!branch) continue;
     const existing = await db.select({ id: usersTable.id }).from(usersTable).where(eq(usersTable.email, admin.email)).limit(1);
     if (existing.length === 0) {
