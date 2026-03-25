@@ -19,6 +19,7 @@ export const riderStatusEnum = pgEnum("rider_status", [
 export const ridersTable = pgTable("riders", {
   id: serial("id").primaryKey(),
   userId: integer("user_id").notNull(),
+  phone: text("phone"),
   vehicleType: text("vehicle_type").default("motorcycle"),
   vehiclePlate: text("vehicle_plate"),
   branchId: integer("branch_id"),

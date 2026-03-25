@@ -301,6 +301,7 @@ router.post("/riders", requireAdmin, async (req, res) => {
       .insert(ridersTable)
       .values({
         userId,
+        phone: phone ?? null,
         branchId: assignedBranchId,
         vehicleType: vehicleType ?? "motorcycle",
         vehiclePlate: vehiclePlate ?? "",

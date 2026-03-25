@@ -105,7 +105,7 @@ router.get("/:id", async (req, res) => {
         rider = {
           id: riderRow.rider.id,
           name: riderRow.user?.name ?? "Rider",
-          phone: riderRow.user?.phone,
+          phone: riderRow.rider.phone ?? riderRow.user?.phone,
           rating: riderRow.rider.rating,
           vehicleType: riderRow.rider.vehicleType,
           vehiclePlate: riderRow.rider.vehiclePlate,
