@@ -1,27 +1,33 @@
 kind = "mobile"
-previewPath = "/"
-title = "Sea Gull Restaurant"
-version = "1.0.0"
-id = "artifacts/seagull"
-router = "expo-domain"
+  previewPath = "/"
+  title = "Sea Gull Restaurant"
+  version = "1.0.0"
+  id = "artifacts/seagull"
+  router = "expo-domain"
 
-[[integratedSkills]]
-name = "expo"
-version = "1.0.0"
+  [[integratedSkills]]
+  name = "expo"
+  version = "1.0.0"
 
-[[services]]
-ensurePreviewReachable = "/status"
-name = "expo"
-paths = [ "/" ]
-localPort = 26135
+  [[services]]
+  ensurePreviewReachable = "/status"
+  name = "expo"
+  paths = [ "/" ]
+  localPort = 26135
 
-[services.development]
-run = "pnpm --filter @workspace/seagull run dev"
+  [services.development]
+  run = "pnpm --filter @workspace/seagull run dev"
 
-[services.production]
-build = [ "pnpm", "--filter", "@workspace/seagull", "run", "build" ]
-run = [ "pnpm", "--filter", "@workspace/seagull", "run", "serve" ]
+  [services.production]
+  build = [ "pnpm", "--filter", "@workspace/seagull", "run", "build:web" ]
+  serve = "static"
+  publicDir = "artifacts/seagull/dist"
 
-[services.env]
-PORT = "26135"
-BASE_PATH = "/"
+  [[services.production.rewrites]]
+  from = "/*"
+  to = "/index.html"
+
+  [services.env]
+  PORT = "26135"
+  BASE_PATH = "/"
+  
