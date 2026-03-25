@@ -1,0 +1,25 @@
+[build]
+  command   = "pnpm install --frozen-lockfile"
+  publish   = "artifacts/api-server/public"
+  functions = "artifacts/api-server/netlify/functions"
+
+[build.environment]
+  NODE_VERSION = "20"
+  # Set these in Netlify dashboard → Site config → Environment variables:
+  #   DATABASE_URL  — your Neon (or any cloud PostgreSQL) connection string
+  #   SESSION_SECRET — any random string for session signing
+
+[functions]
+  node_bundler = "esbuild"
+  included_files = ["artifacts/api-server/src/**"]
+
+[[redirects]]
+  from   = "/api/*"
+  to     = "/.netlify/functions/api"
+  status = 200
+  force  = true
+
+[[redirects]]
+  from   = "/*"
+  to     = "/index.html"
+  status = 200
