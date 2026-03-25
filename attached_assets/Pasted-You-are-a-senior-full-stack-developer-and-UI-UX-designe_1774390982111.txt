@@ -1,0 +1,247 @@
+You are a senior full-stack developer and UI/UX designer.
+
+Create a **professional production-level website** for a restaurant delivery brand called **Seagull Restaurant**.
+
+This website must look like a **real modern SaaS / food ordering platform**, not an AI-generated template.
+
+Follow these STRICT design and functionality rules.
+
+---
+
+GENERAL DESIGN RULES
+
+• Do NOT use emojis anywhere in the website.
+• Use a **clean professional UI**, similar to companies like:
+
+* Uber Eats
+* Talabat
+* Deliveroo
+* Apple.com level minimalism
+
+• Use either:
+
+* the provided **logo**
+  OR
+* **realistic stock images**
+
+Never mix random illustrations.
+
+• **Do NOT generate fake AI images.**
+All images must look like real stock photos that could exist on the internet.
+
+• **No people should appear in images.**
+Only food, restaurant environment, or UI visuals.
+
+• The **icons used inside the mobile app must be IDENTICAL on the website**.
+Use the same icon system everywhere.
+
+---
+
+COLOR SYSTEM
+
+Do NOT use the blue color that currently appears in the design.
+
+Primary colors should be based on the **Seagull logo palette**.
+
+Example palette (adjust based on logo):
+
+Primary: #C62828
+Secondary: #1A1A1A
+Accent: #F5F5F5
+
+Use a **clean neutral background**.
+
+---
+
+TYPOGRAPHY
+
+Use modern fonts such as:
+
+Inter
+Poppins
+Manrope
+
+Large bold headlines and very clean spacing.
+
+---
+
+IMAGES
+
+Images must be:
+
+• High quality
+• Realistic
+• Stock style
+• Consistent lighting
+
+Examples of acceptable images:
+
+* close-up burger photography
+* restaurant interior
+* food delivery packaging
+* kitchen food preparation
+* clean plated meals
+
+Avoid:
+
+❌ people
+❌ cartoons
+❌ illustrations
+
+---
+
+INTERACTIVITY
+
+The website must feel **dynamic and interactive**, not static.
+
+Add animations such as:
+
+• Hover effects on buttons
+• Smooth card hover lift
+• Navbar shrink on scroll
+• Section fade-in when scrolling
+• Animated menu cards
+• Smooth page transitions
+• Interactive menu filtering
+
+Use:
+
+CSS animations
+Framer Motion (if using React)
+or GSAP for subtle animations.
+
+---
+
+USER EXPERIENCE FEATURES
+
+Include the following sections:
+
+1. Hero section
+2. Featured meals
+3. How ordering works
+4. Restaurant branches
+5. Mobile app section
+6. Customer reviews
+7. Footer
+
+---
+
+LOCATION DETECTION SYSTEM
+
+Implement **automatic user location detection**.
+
+When the user opens the website:
+
+• Request geolocation permission
+• Detect the user's location
+• Determine the **nearest restaurant branch**
+
+Then automatically route the order to the **nearest branch**.
+
+If location permission is denied:
+
+Show a **branch selector dropdown**.
+
+---
+
+BRANCH SYSTEM
+
+Create a branch system such as:
+
+Cairo Downtown
+Nasr City
+New Cairo
+Giza
+
+Each branch should have:
+
+• location
+• delivery radius
+• estimated delivery time
+
+---
+
+MENU SYSTEM
+
+Create an interactive menu where users can:
+
+• filter by category
+• add items to cart
+• see dynamic pricing
+
+Categories example:
+
+Burgers
+Fried Chicken
+Seafood
+Sides
+Drinks
+
+---
+
+CART SYSTEM
+
+Include:
+
+• add to cart
+• remove items
+• quantity control
+• total price calculation
+
+---
+
+TECH STACK
+
+Build using:
+
+Frontend:
+React + TailwindCSS
+
+Animations:
+Framer Motion
+
+Backend:
+Node.js + Express
+
+Optional database:
+Firebase or Supabase
+
+---
+
+DESIGN REFERENCES
+
+The UI style should be similar to:
+
+Uber Eats
+Talabat
+Deliveroo
+Apple product landing pages
+
+Clean, premium, and modern.
+
+---
+
+IMPORTANT
+
+Avoid these common AI mistakes:
+
+❌ random gradients
+❌ emojis
+❌ fake illustrations
+❌ inconsistent icons
+❌ stock photos with people
+
+Everything must look **real, professional, and production ready**.
+
+---
+
+OUTPUT
+
+Generate:
+
+• complete folder structure
+• frontend code
+• backend code
+• instructions to run the project
+• sample branch data
+• sample menu items

@@ -1,0 +1,23 @@
+Update branches in database — Delete the three old branches (Zamalek, Maadi, New Cairo) and insert four new ones: Sheikh Zayed (30.0131, 30.9718), Madinaty (30.1022, 31.6318), Fifth Settlement (30.0094, 31.4649), and 6th of October (29.9600, 30.9180), each with proper Arabic names, addresses, phone numbers, and open hours.
+
+Update admin branch managers — Remove the three old admin users and create four new ones in the users table (role='admin') with bcrypt-sha256 hashed passwords: sheikh-zayed@seagull.com / SheikhZayed@2025!, madinaty@seagull.com / Madinaty@2025!, fifthsettlement@seagull.com / FifthSettlement@2025!, october@seagull.com / October@2025!. Each linked to the correct new branch ID.
+
+Update website branch display — Rewrite the hardcoded BRANCHES array in Home.tsx to use the four new branches with correct Google Maps links (coordinates, names, phone, hours). Also verify the Navbar branch display reflects the same data.
+
+Add real-time map to website order tracking — Replace the 15-second polling in OrderDetail.tsx with a WebSocket connection matching the mobile app's join-order protocol. Embed a Leaflet map (via an HTML iframe blob or WebView equivalent) that shows rider location, customer pin, and the route using OSRM — mirroring what TrackingMap.tsx does in the app.
+
+Add App Store and Google Play branded icons to Gallery page — Replace the emoji/text-only buttons on the gallery page CTA section with proper SVG icons for Apple App Store and Google Play badges, making the download buttons look professional.
+
+Final end-to-end audit and fixes — Screenshot and test each screen in the website, admin panel, and app. Fix any broken images, missing translations, console errors, or UI regressions. Confirm: OTP login → cart → checkout → order → tracking works end-to-end. Confirm admin can change order status and it reflects in the app in real time. Confirm all four new branch managers can log in and see their branch data only.
+
+Relevant files
+artifacts/api-server/src/routes/admin.ts
+artifacts/api-server/src/routes/auth.ts
+artifacts/api-server/src/websocket.ts
+artifacts/website/src/pages/Home.tsx:24-49
+artifacts/website/src/pages/OrderDetail.tsx
+artifacts/website/src/pages/Gallery.tsx
+artifacts/seagull/components/TrackingMap.tsx
+artifacts/seagull/app/order/[id].tsx
+lib/db/src/schema/users.ts
+lib/db/src/schema/branches.ts

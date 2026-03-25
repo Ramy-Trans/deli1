@@ -1,0 +1,284 @@
+You are working on an already fully built, production-quality restaurant ordering and delivery application called “Seagull”.
+
+IMPORTANT:
+- The app is already complete and working perfectly.
+- DO NOT rebuild the app from scratch.
+- DO NOT remove or break any existing features.
+- Your task is to ADD and INTEGRATE a premium real-time tracking system AND ensure ALL settings across the app are fully functional and correctly wired.
+- You must continue working step-by-step until EVERYTHING is fully implemented and working.
+- Do NOT stop early, do NOT leave placeholders, do NOT skip logic.
+- Ensure all features are fully connected (frontend + backend + database).
+- Continue execution until all edits are complete and stable.
+
+--------------------------------------------------
+TASK 1: ADD REAL-TIME ORDER TRACKING SYSTEM
+--------------------------------------------------
+
+Implement a full real-time delivery tracking system integrated into the existing app.
+
+This system must connect:
+- Orders
+- Drivers
+- Customer tracking UI
+- Backend updates
+- Notifications
+
+-----------------------------------
+REAL-TIME ARCHITECTURE
+-----------------------------------
+
+Implement real-time communication using:
+- WebSockets (Socket.io or equivalent)
+
+System behavior:
+- Driver sends GPS updates every 2–5 seconds
+- Backend processes and stores location
+- Backend pushes updates instantly to the customer UI
+- No polling or refresh-based updates
+
+-----------------------------------
+DRIVER LOCATION SYSTEM
+-----------------------------------
+
+Create logic for driver tracking:
+- Driver sends:
+  - latitude
+  - longitude
+  - timestamp
+- Store latest location per active order
+- Link driver to order in database
+
+-----------------------------------
+MAP TRACKING UI (CUSTOMER SIDE)
+-----------------------------------
+
+Enhance existing order page with a live map:
+
+Features:
+- Display driver marker (moving)
+- Display customer location
+- Optional restaurant marker
+- Draw route path
+
+UX:
+- Smooth marker animation (interpolation, no jumping)
+- Auto-center map on route
+- Dynamic zoom
+- High performance
+
+-----------------------------------
+ETA SYSTEM
+-----------------------------------
+
+Implement dynamic ETA calculation:
+
+- Calculate based on:
+  - distance
+  - estimated speed or map API
+- Update ETA in real-time
+- Recalculate when:
+  - driver moves
+  - route changes
+  - delays occur
+
+Display:
+- “Arriving in X minutes”
+- Live countdown
+
+-----------------------------------
+ORDER STATUS SYSTEM
+-----------------------------------
+
+Ensure full status lifecycle is implemented and synced:
+
+- Order placed
+- Payment pending
+- Payment confirmed
+- Restaurant accepted
+- Preparing
+- Packed
+- Waiting for driver
+- Driver assigned
+- Driver heading to restaurant
+- Driver arrived at restaurant
+- Picked up
+- In transit
+- Near customer (auto-trigger at ~300–500m)
+- Arrived
+- Delivered
+- Completed
+- Cancelled
+- Failed delivery
+- Refund pending
+- Refunded
+
+Each status must:
+- Update database
+- Trigger UI update
+- Trigger notification
+- Appear in timeline
+
+-----------------------------------
+TIMELINE UI
+-----------------------------------
+
+Add or enhance timeline component:
+
+- Show all statuses vertically
+- Highlight completed steps
+- Animate current step
+- Show timestamps
+- Make design premium and clean
+
+-----------------------------------
+DRIVER INFO PANEL
+-----------------------------------
+
+Display:
+- Driver name
+- Profile image
+- Rating
+- Vehicle type
+
+-----------------------------------
+REAL-TIME EVENTS
+-----------------------------------
+
+Ensure:
+- Location updates push instantly
+- Status updates push instantly
+- ETA updates in real-time
+- UI updates without refresh
+
+-----------------------------------
+NOTIFICATIONS
+-----------------------------------
+
+Trigger notifications on:
+- Order confirmed
+- Preparing
+- Driver assigned
+- Picked up
+- Near customer
+- Delivered
+
+Use:
+- In-app notifications (required)
+- Structure for SMS/email optional
+
+-----------------------------------
+PROOF OF DELIVERY
+-----------------------------------
+
+Implement:
+- OTP confirmation OR
+- Delivery confirmation button
+
+-----------------------------------
+ADVANCED LOGIC
+-----------------------------------
+
+Add:
+- Auto “near customer” detection
+- Auto “arrived” detection
+- Delay detection (ETA increases)
+- Driver reassignment logic (if cancelled)
+- Shareable tracking link
+
+--------------------------------------------------
+TASK 2: FIX AND COMPLETE ALL SETTINGS
+--------------------------------------------------
+
+Audit and fix ALL settings in the application.
+
+Ensure every settings feature is:
+- Fully functional
+- Connected to backend
+- Persisted in database
+- Reflected in UI immediately
+
+-----------------------------------
+SETTINGS TO VERIFY & FIX
+-----------------------------------
+
+User Settings:
+- Profile update
+- Address management
+- Language (Arabic / English)
+- Dark mode toggle
+- Notification preferences
+
+Order Settings:
+- Delivery preferences
+- Default address
+- Saved instructions
+
+Admin Settings:
+- Payment configuration
+- Delivery zones
+- Branch settings
+- Fees and taxes
+- Promo configurations
+
+System Settings:
+- API connections
+- Environment variables
+- Feature toggles
+
+-----------------------------------
+REQUIREMENTS FOR SETTINGS
+-----------------------------------
+
+- All settings must save correctly
+- Changes must reflect instantly
+- No broken toggles or UI
+- No disconnected fields
+- Proper validation
+- Error handling
+- Clean UX
+
+--------------------------------------------------
+INTEGRATION REQUIREMENTS
+--------------------------------------------------
+
+- Do NOT duplicate code unnecessarily
+- Integrate into existing architecture
+- Reuse components where possible
+- Maintain consistency with current design
+- Keep performance optimized
+
+--------------------------------------------------
+QUALITY REQUIREMENTS
+--------------------------------------------------
+
+- No placeholders
+- No incomplete logic
+- No TODOs left behind
+- No broken flows
+- No UI glitches
+- No console errors
+- Fully functional end-to-end
+
+--------------------------------------------------
+EXECUTION RULES
+--------------------------------------------------
+
+- Work step-by-step
+- Finish backend → then frontend → then integration
+- Test each part logically before moving on
+- Continue until everything is complete
+- Do NOT stop early
+- Do NOT run out of progress before completing all edits
+
+--------------------------------------------------
+FINAL EXPECTATION
+--------------------------------------------------
+
+At the end:
+- Real-time tracking must work smoothly
+- All settings must be fully functional
+- System must feel premium and complete
+- Everything must be integrated and stable
+- Ready for demo to a real client
+
+Do not stop until everything above is fully implemented and working.

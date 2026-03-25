@@ -1,0 +1,199 @@
+Build a full-stack premium restaurant ordering and delivery platform for a restaurant brand called Seagull.
+
+This app must be designed to feel like a high-end hospitality product, not a simple delivery clone. The final result should be elegant, production-ready, and suitable for a serious client pitch in Egypt.
+
+DESIGN DIRECTION
+- Use the attached logo as the inspiration for the branding.
+- Build the UI around a luxurious ocean-blue, deep navy, charcoal, white, and silver-gray palette.
+- The interface should look modern, premium, trustworthy, and polished.
+- Use smooth transitions, refined spacing, elegant cards, premium buttons, and high-end typography.
+- Keep the experience mobile-first, but make sure the system also supports tablet and desktop views cleanly.
+
+BUILD THE FULL PRODUCT
+Create the following parts:
+1) Customer app
+2) Rider tracking and delivery workflow
+3) Restaurant management dashboard
+4) Admin dashboard
+5) Payment integration layer for Egypt
+6) Notification and status event system
+7) Analytics and reporting layer
+
+CUSTOMER APP FEATURES
+The customer experience should include:
+- Landing/home page with hero section, featured meals, categories, best sellers, and promotions
+- Menu browsing by category
+- Powerful search
+- Filters for seafood, grilled, spicy, healthy, family meals, kids, vegetarian, combos, and featured items
+- Product detail page with:
+  - photos
+  - item title
+  - description
+  - ingredients
+  - allergens
+  - customizations
+  - add-ons
+  - portion sizes
+  - spice level
+  - prep time
+  - related items
+- Favorites
+- Reorder from previous purchases
+- Recently viewed items
+- Scheduled ordering
+- Delivery and pickup toggle
+- Delivery address book
+- Map pin selection
+- Address notes and landmark notes
+- Loyalty points and rewards
+- Promo code entry
+- Arabic and English language support
+- Dark mode and light mode
+- Optional guest checkout
+
+CHECKOUT AND PAYMENT
+The checkout must support:
+- item customization
+- add-ons and extras
+- special instructions
+- delivery notes
+- service fee, taxes, and total calculation
+- tip for driver
+- payment method selection
+- address selection
+- map-based pin selection
+- time slot selection
+- final confirmation screen
+
+Egypt payment methods to include:
+- Cash on delivery
+- Visa
+- Mastercard
+- Meeza
+- Fawry
+- Vodafone Cash
+- Orange Cash
+- Etisalat Cash
+- InstaPay / bank transfer
+- any gateway-supported mobile wallet or card method commonly used in Egypt
+
+Integrate payments in a way that supports secure transactions, webhooks, payment status updates, failures, retries, and refunds.
+
+ORDER TRACKING SYSTEM
+Create a rich live order tracking flow with all these states:
+- Order placed
+- Payment pending
+- Payment confirmed
+- Restaurant accepted
+- Preparing
+- Packed
+- Waiting for rider
+- Rider assigned
+- Rider heading to restaurant
+- Rider arrived at restaurant
+- Picked up
+- On the way
+- Near customer
+- Arrived at customer location
+- Delivered
+- Completed
+- Cancelled
+- Failed delivery
+- Refund pending
+- Refunded
+
+Tracking features should include:
+- live GPS map
+- ETA updates
+- distance remaining
+- driver/rider profile card
+- route visualization
+- order timeline with timestamps
+- proof of delivery via OTP or photo
+- support for contactless delivery
+- delivery instructions
+- gate / floor / landmark fields
+- masked contact
+- push notification updates
+- support alerts for delays
+- ability to share order tracking link
+- automatic reassignments if a rider cancels
+
+RESTAURANT DASHBOARD
+Build a dashboard for staff with:
+- live order queue
+- accept / reject / prepare controls
+- rider assignment controls
+- branch management
+- menu management
+- product availability toggles
+- stock monitoring
+- promotion management
+- coupon management
+- refund and cancellation workflow
+- customer notes
+- kitchen workflow support
+- order history
+- analytics for revenue, order volume, prep time, delivery time, peak hours, and top products
+
+ADMIN PANEL
+Build a secure admin area for:
+- user management
+- staff permissions
+- branch oversight
+- payment monitoring
+- fraud or anomaly alerts
+- support ticket management
+- promotion campaigns
+- loyalty system management
+- analytics reports
+- audit trail logs
+- role-based access control
+
+HIGH-VALUE ADDITIONS
+Add the following to increase the product value:
+- Smart recommendations
+- Frequently bought together
+- Meal bundles
+- Family combos
+- Corporate lunch orders
+- Catering requests
+- Scheduled event ordering
+- loyalty rewards
+- referral rewards
+- reviews and ratings
+- support chat
+- in-app announcements
+- receipt download
+- order reordering in one tap
+- branch-specific availability logic
+- order confirmation notifications via app push, SMS, email, or WhatsApp if possible
+
+DATA / ARCHITECTURE
+Create a scalable and organized data model with entities such as:
+- users
+- roles
+- branches
+- products
+- categories
+- product_variants
+- add_ons
+- cart_items
+- orders
+- order_items
+- deliveries
+- riders
+- payments
+- refunds
+- coupons
+- loyalty_points
+- notifications
+- reviews
+- support_tickets
+- audit_logs
+- inventory_items
+
+Make the codebase clean, modular, secure, and easy to extend. Use sensible folder structure, reusable components, and production-minded patterns.
+
+DELIVERABLE STANDARD
+The app should be good enough to demonstrate directly to a restaurant client and clearly justify a premium project budget. It must look expensive, feel smooth, and cover the full restaurant delivery lifecycle end-to-end.

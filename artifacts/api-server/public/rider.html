@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <title>Sea Gull – Rider Dashboard</title>
+  <script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: #0A1628;
+      color: #fff;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    .header {
+      background: linear-gradient(135deg, #0A1628, #1A6FA8);
+      padding: 24px 20px 20px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+    .logo { font-size: 28px; }
+    .header-text h1 { font-size: 18px; font-weight: 700; color: #D4AF37; }
+    .header-text p { font-size: 12px; color: rgba(255,255,255,0.6); margin-top: 2px; }
+    .content { flex: 1; padding: 20px; max-width: 480px; margin: 0 auto; width: 100%; }
+
+    .card {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 16px;
+      padding: 20px;
+      margin-bottom: 16px;
+    }
+    .card-title { font-size: 13px; font-weight: 700; color: #D4AF37; text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 14px; }
+
+    label { display: block; font-size: 12px; color: rgba(255,255,255,0.6); margin-bottom: 6px; }
+    input {
+      width: 100%;
+      background: rgba(255,255,255,0.08);
+      border: 1.5px solid rgba(255,255,255,0.15);
+      border-radius: 10px;
+      padding: 12px 14px;
+      color: #fff;
+      font-size: 15px;
+      outline: none;
+      margin-bottom: 14px;
+    }
+    input:focus { border-color: #1A6FA8; }
+    input::placeholder { color: rgba(255,255,255,0.3); }
+
+    .btn {
+      width: 100%;
+      padding: 16px;
+      border: none;
+      border-radius: 14px;
+      font-size: 16px;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: opacity 0.2s, transform 0.1s;
+    }
+    .btn:active { transform: scale(0.98); }
+    .btn-primary { background: #D4AF37; color: #0A1628; }
+    .btn-success { background: #22C55E; color: #fff; }
+    .btn-danger { background: #EF4444; color: #fff; }
+    .btn-secondary { background: rgba(255,255,255,0.1); color: #fff; border: 1px solid rgba(255,255,255,0.2); }
+    .btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+    .status-box {
+      display: none;
+      background: rgba(34, 197, 94, 0.1);
+      border: 1px solid rgba(34, 197, 94, 0.3);
+      border-radius: 12px;
+      padding: 16px;
+      margin-bottom: 16px;
+    }
+    .status-box.active { display: block; }
+    .status-dot {
+      display: inline-block;
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: #22C55E;
+      margin-right: 6px;
+      animation: pulse 1.5s infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.3; }
+    }
+    .status-text { font-size: 13px; color: #22C55E; font-weight: 600; }
+    .coords { font-size: 12px; color: rgba(255,255,255,0.5); margin-top: 6px; font-family: monospace; }
+    .updates-count { font-size: 11px; color: rgba(255,255,255,0.4); margin-top: 4px; }
+
+    .order-info {
+      display: none;
+    }
+    .order-info.active { display: block; }
+    .info-row { display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,0.06); }
+    .info-row:last-child { border-bottom: none; }
+    .info-key { font-size: 12px; color: rgba(255,255,255,0.5); }
+    .info-val { font-size: 13px; font-weight: 600; color: #fff; }
+
+    .step-indicator {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 20px;
+    }
+    .step { flex: 1; height: 4px; border-radius: 2px; background: rgba(255,255,255,0.1); transition: background 0.3s; }
+    .step.done { background: #D4AF37; }
+    .step.active { background: #1A6FA8; }
+
+    .alert { border-radius: 10px; padding: 12px 14px; font-size: 13px; margin-bottom: 14px; }
+    .alert-error { background: rgba(239,68,68,0.15); border: 1px solid rgba(239,68,68,0.3); color: #FCA5A5; }
+    .alert-success { background: rgba(34,197,94,0.15); border: 1px solid rgba(34,197,94,0.3); color: #86EFAC; }
+    .alert-info { background: rgba(26,111,168,0.2); border: 1px solid rgba(26,111,168,0.4); color: #93C5FD; }
+
+    .map-preview {
+      background: rgba(255,255,255,0.04);
+      border-radius: 12px;
+      height: 120px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 10px;
+      position: relative;
+      overflow: hidden;
+    }
+    .map-bg {
+      position: absolute;
+      inset: 0;
+      opacity: 0.3;
+      background: repeating-linear-gradient(0deg, transparent, transparent 20px, rgba(255,255,255,0.03) 20px, rgba(255,255,255,0.03) 21px),
+                  repeating-linear-gradient(90deg, transparent, transparent 20px, rgba(255,255,255,0.03) 20px, rgba(255,255,255,0.03) 21px);
+    }
+    .rider-pin {
+      font-size: 36px;
+      filter: drop-shadow(0 4px 8px rgba(0,0,0,0.5));
+      animation: bounce 2s infinite;
+      position: relative;
+      z-index: 1;
+    }
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-8px); }
+    }
+    .accuracy-bar { margin-top: 8px; }
+    .accuracy-label { font-size: 11px; color: rgba(255,255,255,0.4); margin-bottom: 4px; }
+    .accuracy-track { height: 4px; background: rgba(255,255,255,0.1); border-radius: 2px; }
+    .accuracy-fill { height: 4px; background: #22C55E; border-radius: 2px; transition: width 0.5s; }
+
+    .nav-status {
+      display: flex;
+      gap: 10px;
+      margin-top: 14px;
+    }
+    .nav-btn {
+      flex: 1;
+      padding: 12px 8px;
+      border-radius: 12px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.1);
+      color: rgba(255,255,255,0.7);
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      text-align: center;
+    }
+    .nav-btn.active-status {
+      background: rgba(26,111,168,0.3);
+      border-color: #1A6FA8;
+      color: #fff;
+    }
+
+    .footer {
+      padding: 16px 20px;
+      text-align: center;
+      font-size: 11px;
+      color: rgba(255,255,255,0.3);
+      border-top: 1px solid rgba(255,255,255,0.06);
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <div class="logo">🦅</div>
+    <div class="header-text">
+      <h1>Sea Gull Rider</h1>
+      <p>Delivery Agent Dashboard</p>
+    </div>
+  </div>
+
+  <div class="content">
+    <!-- Step 1: Login -->
+    <div id="step-login">
+      <div class="step-indicator">
+        <div class="step active" id="s1"></div>
+        <div class="step" id="s2"></div>
+        <div class="step" id="s3"></div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">🏍️ Start Delivery</div>
+        <div class="alert alert-info">Enter your details and the Order ID assigned to you by the kitchen.</div>
+
+        <label>Your Name</label>
+        <input type="text" id="riderName" placeholder="e.g. Ahmed Mohamed" autocomplete="name">
+
+        <label>Order ID</label>
+        <input type="number" id="orderId" placeholder="e.g. 42" inputmode="numeric">
+
+        <label>Rider Code (optional)</label>
+        <input type="text" id="riderCode" placeholder="e.g. R-001" style="margin-bottom: 0">
+
+        <div id="loginError" class="alert alert-error" style="display:none;margin-top:12px"></div>
+        <button class="btn btn-primary" onclick="startSession()" style="margin-top:14px">
+          🚀 Start Delivering
+        </button>
+      </div>
+    </div>
+
+    <!-- Step 2: Tracking Active -->
+    <div id="step-active" style="display:none">
+      <div class="step-indicator">
+        <div class="step done" id="s1a"></div>
+        <div class="step active" id="s2a"></div>
+        <div class="step" id="s3a"></div>
+      </div>
+
+      <div class="status-box active" id="statusBox">
+        <div>
+          <span class="status-dot"></span>
+          <span class="status-text" id="statusText">Connecting to GPS…</span>
+        </div>
+        <div class="coords" id="coordsText">Waiting for location…</div>
+        <div class="updates-count" id="updatesCount"></div>
+      </div>
+
+      <div class="card order-info active" id="orderCard">
+        <div class="card-title">📦 Active Order</div>
+        <div class="info-row">
+          <span class="info-key">Order ID</span>
+          <span class="info-val" id="disp-orderid">—</span>
+        </div>
+        <div class="info-row">
+          <span class="info-key">Rider</span>
+          <span class="info-val" id="disp-rider">—</span>
+        </div>
+        <div class="info-row">
+          <span class="info-key">GPS Accuracy</span>
+          <span class="info-val" id="disp-accuracy">—</span>
+        </div>
+        <div class="info-row">
+          <span class="info-key">Connection</span>
+          <span class="info-val" id="disp-conn">Connecting…</span>
+        </div>
+
+        <div class="map-preview">
+          <div class="map-bg"></div>
+          <div class="rider-pin" id="riderPinEmoji">📍</div>
+        </div>
+
+        <div class="accuracy-bar">
+          <div class="accuracy-label">GPS Signal Strength</div>
+          <div class="accuracy-track">
+            <div class="accuracy-fill" id="accuracyFill" style="width:0%"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">📊 Update Order Status</div>
+        <div class="nav-status">
+          <div class="nav-btn" onclick="updateStatus('on_the_way')">🏍️ On The Way</div>
+          <div class="nav-btn" onclick="updateStatus('near_customer')">📍 Near You</div>
+          <div class="nav-btn" onclick="updateStatus('delivered')">✅ Delivered</div>
+        </div>
+      </div>
+
+      <button class="btn btn-danger" onclick="endSession()">🔴 End Delivery</button>
+    </div>
+
+    <!-- Step 3: Delivered -->
+    <div id="step-done" style="display:none">
+      <div class="step-indicator">
+        <div class="step done"></div>
+        <div class="step done"></div>
+        <div class="step done"></div>
+      </div>
+      <div class="card" style="text-align:center;padding:40px 20px">
+        <div style="font-size:60px;margin-bottom:16px">🎉</div>
+        <div style="font-size:22px;font-weight:700;color:#D4AF37;margin-bottom:8px">Delivery Complete!</div>
+        <div style="font-size:14px;color:rgba(255,255,255,0.6);margin-bottom:24px">Order has been successfully delivered to the customer.</div>
+        <button class="btn btn-primary" onclick="resetSession()">Start Next Order</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer">Sea Gull Restaurant · Rider App v1.0</div>
+
+  <script>
+    let socket = null;
+    let watchId = null;
+    let updateCount = 0;
+    let riderName = '';
+    let orderId = null;
+    let isConnected = false;
+
+    const socketUrl = window.location.origin;
+
+    function startSession() {
+      riderName = document.getElementById('riderName').value.trim();
+      const orderIdVal = document.getElementById('orderId').value.trim();
+      const errEl = document.getElementById('loginError');
+      errEl.style.display = 'none';
+
+      if (!riderName) { showError('Please enter your name'); return; }
+      if (!orderIdVal || isNaN(parseInt(orderIdVal))) { showError('Please enter a valid Order ID'); return; }
+
+      orderId = parseInt(orderIdVal);
+
+      if (!navigator.geolocation) {
+        showError('Geolocation is not supported by your browser. Please use a modern mobile browser.');
+        return;
+      }
+
+      document.getElementById('step-login').style.display = 'none';
+      document.getElementById('step-active').style.display = 'block';
+
+      document.getElementById('disp-orderid').textContent = '#' + orderId;
+      document.getElementById('disp-rider').textContent = riderName;
+      document.getElementById('disp-accuracy').textContent = 'Getting GPS…';
+
+      connectSocket();
+      startTracking();
+    }
+
+    function connectSocket() {
+      socket = io(socketUrl, { transports: ['websocket', 'polling'] });
+
+      socket.on('connect', () => {
+        isConnected = true;
+        socket.emit('join-order', orderId);
+        document.getElementById('disp-conn').textContent = '🟢 Connected';
+        document.getElementById('riderPinEmoji').textContent = '🏍️';
+      });
+
+      socket.on('disconnect', () => {
+        isConnected = false;
+        document.getElementById('disp-conn').textContent = '🔴 Reconnecting…';
+      });
+    }
+
+    function startTracking() {
+      document.getElementById('statusText').textContent = 'Getting GPS location…';
+
+      watchId = navigator.geolocation.watchPosition(
+        (position) => {
+          const { latitude, longitude, accuracy, heading, speed } = position.coords;
+          updateCount++;
+
+          const loc = { latitude, longitude, heading: heading || 0, speed: speed || 0, timestamp: Date.now() };
+
+          document.getElementById('statusText').textContent = '🟢 Live Tracking Active';
+          document.getElementById('coordsText').textContent =
+            `${latitude.toFixed(6)}, ${longitude.toFixed(6)}`;
+          document.getElementById('updatesCount').textContent =
+            `${updateCount} location update${updateCount !== 1 ? 's' : ''} sent`;
+
+          const accText = accuracy < 10 ? `Excellent (±${Math.round(accuracy)}m)` :
+                         accuracy < 30 ? `Good (±${Math.round(accuracy)}m)` :
+                         accuracy < 100 ? `Fair (±${Math.round(accuracy)}m)` : `Weak (±${Math.round(accuracy)}m)`;
+          document.getElementById('disp-accuracy').textContent = accText;
+
+          const fillPct = Math.max(10, Math.min(100, 100 - (accuracy / 2)));
+          document.getElementById('accuracyFill').style.width = fillPct + '%';
+
+          if (socket && isConnected) {
+            socket.emit('rider-location-update', {
+              riderId: 1,
+              orderId: orderId,
+              location: loc,
+            });
+          }
+        },
+        (error) => {
+          const msgs = {
+            1: 'Location access denied. Please allow location permission in your browser settings.',
+            2: 'Location unavailable. Make sure you are outdoors for better GPS signal.',
+            3: 'Location request timed out. Retrying…'
+          };
+          document.getElementById('statusText').textContent = '⚠️ ' + (msgs[error.code] || 'GPS error');
+        },
+        { enableHighAccuracy: true, timeout: 15000, maximumAge: 3000 }
+      );
+    }
+
+    function updateStatus(status) {
+      const token = localStorage.getItem('riderToken') || '';
+      const labels = {
+        'on_the_way': '🏍️ On The Way',
+        'near_customer': '📍 Almost There',
+        'delivered': '✅ Delivered',
+      };
+
+      fetch('/api/orders/' + orderId + '/status', {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json', 'x-rider-key': 'seagull-rider-2024' },
+        body: JSON.stringify({ status }),
+      }).then(r => r.json()).then(data => {
+        document.getElementById('statusText').textContent = '📡 Status: ' + labels[status];
+        if (status === 'delivered') {
+          setTimeout(() => {
+            if (watchId) navigator.geolocation.clearWatch(watchId);
+            socket && socket.disconnect();
+            document.getElementById('step-active').style.display = 'none';
+            document.getElementById('step-done').style.display = 'block';
+          }, 1200);
+        }
+      }).catch(() => {
+        document.getElementById('statusText').textContent = '⚠️ Status update failed (check connection)';
+      });
+    }
+
+    function endSession() {
+      if (confirm('End this delivery session?')) {
+        resetSession();
+      }
+    }
+
+    function resetSession() {
+      if (watchId) navigator.geolocation.clearWatch(watchId);
+      if (socket) socket.disconnect();
+      watchId = null; socket = null; orderId = null; updateCount = 0; isConnected = false;
+      document.getElementById('riderName').value = '';
+      document.getElementById('orderId').value = '';
+      document.getElementById('step-active').style.display = 'none';
+      document.getElementById('step-done').style.display = 'none';
+      document.getElementById('step-login').style.display = 'block';
+    }
+
+    function showError(msg) {
+      const el = document.getElementById('loginError');
+      el.textContent = msg;
+      el.style.display = 'block';
+    }
+  </script>
+</body>
+</html>

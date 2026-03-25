@@ -1,0 +1,178 @@
+I am working inside a Replit Node.js project.
+
+IMPORTANT:
+My backend is a custom Node.js HTTP server (NOT Express).
+Do NOT convert it to Express.
+Do NOT rewrite my server.
+Only ADD code in the correct places.
+
+========================
+API KEY (IMPORTANT)
+========================
+
+When using OpenRouteService API, use this EXACT format:
+
+headers: {
+  "Authorization": "PUT_YOUR_API_KEY_HERE",
+  "Content-Type": "application/json"
+}
+
+DO NOT add "Bearer"
+DO NOT modify the format
+
+========================
+BRANCH SYSTEM
+========================
+
+Use these 3 branches:
+
+const branches = [
+  { name: "6th of October", lat: 29.972, lng: 30.944 },
+  { name: "New Cairo", lat: 30.028, lng: 31.491 },
+  { name: "Madinaty", lat: 30.072, lng: 31.628 }
+];
+
+Create a function:
+
+function getNearestBranch(userLat, userLng)
+
+- Calculate distance between user and each branch
+- Return the closest branch
+
+========================
+ORDER SYSTEM
+========================
+
+Create order structure:
+
+{
+  id,
+  userLat,
+  userLng,
+  branch,
+  driverId,
+  status
+}
+
+When user places order:
+- Detect user location
+- Automatically assign nearest branch
+
+========================
+DRIVER TRACKING (MULTIPLE DRIVERS)
+========================
+
+Instead of single driver, use object:
+
+let drivers = {
+  "driver1": { lat: 30.0444, lng: 31.2357 }
+};
+
+Add routes:
+
+GET /driver-location/:driverId
+→ return driver location
+
+POST /update-location/:driverId
+→ update driver location
+
+========================
+ROUTE + ETA (OpenRouteService)
+========================
+
+Add route:
+
+GET /route?driverLat=&driverLng=&userLat=&userLng=
+
+Inside this route:
+
+- Call OpenRouteService API
+- Use:
+
+headers: {
+  "Authorization": "PUT_YOUR_API_KEY_HERE",
+  "Content-Type": "application/json"
+}
+
+- Send coordinates like this:
+  [driverLng, driverLat]
+  [userLng, userLat]
+
+Return:
+- route geometry
+- distance
+- duration
+
+========================
+FRONTEND (Leaflet)
+========================
+
+On tracking page:
+
+1. Add map using Leaflet
+2. Add:
+   - driver marker
+   - user marker
+3. Fetch driver location every 3 seconds
+4. Call /route endpoint
+5. Draw route polyline
+6. Update map in real-time
+
+========================
+ETA DISPLAY
+========================
+
+Show:
+
+Distance (km)
+ETA (minutes)
+
+========================
+DRIVER SIDE
+========================
+
+Create script:
+
+- navigator.geolocation
+- Send location every 3 seconds to:
+
+POST /update-location/driver1
+
+========================
+AUTH SYSTEM (BASIC)
+========================
+
+Create roles:
+
+- Admin (1 account)
+- Branch accounts (1 per branch)
+
+Admin:
+- Can see all orders
+
+Branch:
+- Can only see its orders
+
+========================
+OUTPUT FORMAT
+========================
+
+- Show EXACT code snippets
+- Show WHERE to paste each part
+- Do NOT rewrite full files
+- Keep everything modular
+
+========================
+GOAL
+========================
+
+A working system where:
+
+- User location auto-detected
+- Order goes to nearest branch
+- Multiple drivers exist
+- Driver location updates live
+- Map shows:
+  - moving driver
+  - real route
+  - ETA + distance

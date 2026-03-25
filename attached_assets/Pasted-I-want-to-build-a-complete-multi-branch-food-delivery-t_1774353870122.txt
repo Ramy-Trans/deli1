@@ -1,0 +1,130 @@
+I want to build a complete multi-branch food delivery tracking system like Talabat using Google Maps.
+
+IMPORTANT:
+- Do NOT overwrite my existing code
+- Only ADD or MODIFY what is necessary
+- Clearly tell me where to insert each code snippet
+
+====================================
+GOOGLE MAPS INTEGRATION
+====================================
+
+1. Use Google Maps JavaScript API
+
+2. On the order tracking page:
+- Display a real Google Map (not demo)
+- Show:
+  - Driver marker (moving)
+  - Customer location marker
+- Use DirectionsService + DirectionsRenderer to:
+  - Draw route from driver → customer
+  - Show real roads, street names, buildings
+- Display:
+  - Distance
+  - ETA (duration)
+
+3. Update driver location every 3 seconds and refresh route
+
+Use placeholder:
+YOUR_GOOGLE_MAPS_API_KEY
+
+====================================
+MULTI-BRANCH SYSTEM
+====================================
+
+4. Define 3 branches with coordinates:
+- Madinaty
+- Fifth Settlement
+- Sheikh Zayed
+
+5. When user opens app:
+- Detect user location using browser geolocation
+
+6. When user places an order:
+- Automatically assign the order to the nearest branch
+- Use distance calculation (Haversine formula or Google Maps)
+
+====================================
+AUTH SYSTEM
+====================================
+
+7. Create authentication system with roles:
+
+- Admin (1 account)
+- Branch accounts (one per branch)
+
+Total = 4 accounts for now (scalable to 8 later)
+
+Each role:
+- Admin: can see all orders from all branches
+- Branch: can see only its own orders
+
+Use simple JWT or session-based authentication
+
+====================================
+ORDER SYSTEM
+====================================
+
+8. Each order should include:
+- user location (lat, lng)
+- assigned branch
+- order status:
+  (pending, preparing, on_the_way, delivered)
+- driverId
+
+====================================
+DRIVER TRACKING
+====================================
+
+9. Backend routes:
+
+- POST /update-location/:driverId
+  → receives { lat, lng }
+
+- GET /driver-location/:driverId
+  → returns current location
+
+Store in memory for now
+
+10. Driver side:
+- Use navigator.geolocation
+- Send location every 3 seconds
+
+====================================
+FRONTEND TRACKING PAGE
+====================================
+
+11. On tracking page:
+
+- Fetch driver location every 3 seconds
+- Update marker position
+- Recalculate route using Google Directions API
+- Update:
+  - ETA
+  - Distance
+
+====================================
+OUTPUT FORMAT
+====================================
+
+- Show EXACT code snippets
+- Tell me exactly where to paste each part
+- Do NOT rewrite entire files
+- Keep code clean and modular
+
+====================================
+GOAL
+====================================
+
+A working system where:
+
+- User location is detected automatically
+- Order goes to nearest branch
+- Branch sees its own orders
+- Admin sees all orders
+- Driver moves in real-time
+- User sees:
+  - real Google Map
+  - live moving driver
+  - route line
+  - ETA + distance
