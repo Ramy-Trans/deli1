@@ -1,0 +1,111 @@
+4:12:43 PM: build-image version: a0bc76c99cbadd99a168cf193f4d4df9fa7ee94a (noble-new-builds)
+4:12:43 PM: buildbot version: 854a34bbca35cdbdaec05bf6f4a809a0f4efe4ea
+4:12:44 PM: Fetching cached dependencies
+4:12:44 PM: Failed to fetch cache, continuing with build
+4:12:44 PM: Starting to prepare the repo for build
+4:12:44 PM: No cached dependencies found. Cloning fresh repo
+4:12:44 PM: git clone --filter=blob:none https://github.com/Ramy-Trans/deli1
+4:12:44 PM: Preparing Git Reference refs/heads/main
+4:12:49 PM: Installing dependencies
+4:12:50 PM: mise ~/.config/mise/config.toml tools: python@3.14.3
+4:12:50 PM: mise ~/.config/mise/config.toml tools: ruby@3.4.8
+4:12:50 PM: mise ~/.config/mise/config.toml tools: go@1.26.1
+4:12:50 PM: Downloading and installing node v20.20.2...
+4:12:50 PM: Downloading https://nodejs.org/dist/v20.20.2/node-v20.20.2-linux-x64.tar.xz...
+4:12:51 PM: Computing checksum with sha256sum
+4:12:51 PM: Checksums matched!
+4:12:53 PM: Now using node v20.20.2 (npm v10.8.2)
+4:12:53 PM: Enabling Node.js Corepack
+4:12:53 PM: WARNING: The environment variable 'NODE_ENV' is set to 'production'. Any 'devDependencies' in package.json will not be installed
+4:12:54 PM: pnpm workspaces detected
+4:12:54 PM: Installing npm packages using pnpm version 10.30.3
+4:12:54 PM: Scope: all 11 workspace projects
+4:12:54 PM: Lockfile is up to date, resolution step is skipped
+4:12:55 PM: Progress: resolved 1, reused 0, downloaded 0, added 0
+4:12:55 PM: Packages: +1107
+4:12:55 PM: ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+4:12:56 PM: Progress: resolved 1107, reused 0, downloaded 124, added 81
+4:12:57 PM: Progress: resolved 1107, reused 0, downloaded 185, added 105
+4:12:58 PM: Progress: resolved 1107, reused 0, downloaded 243, added 125
+4:12:59 PM: Progress: resolved 1107, reused 0, downloaded 611, added 495
+4:13:00 PM: Progress: resolved 1107, reused 0, downloaded 739, added 562
+4:13:01 PM: Progress: resolved 1107, reused 0, downloaded 915, added 729
+4:13:02 PM: Progress: resolved 1107, reused 0, downloaded 1067, added 793
+4:13:02 PM: Progress: resolved 1107, reused 0, downloaded 1081, added 1107, done
+4:13:02 PM: .../esbuild@0.27.3/node_modules/esbuild postinstall$ node install.js
+4:13:02 PM: .../esbuild@0.27.3/node_modules/esbuild postinstall: Done
+4:13:03 PM: devDependencies:
+4:13:03 PM: + prettier 3.8.1
+4:13:03 PM: + typescript 5.9.3
+4:13:03 PM: . preinstall$ sh -c 'rm -f package-lock.json yarn.lock; case "$npm_config_user_agent" in pnpm/*) ;; *) echo "Use pnpm instead" >&2; exit 1 ;; esac'
+4:13:03 PM: . preinstall: Done
+4:13:03 PM: Done in 8.8s using pnpm v10.30.3
+4:13:03 PM: npm packages installed using pnpm
+4:13:04 PM: Successfully installed dependencies
+4:13:04 PM: Detected 0 framework(s)
+4:13:04 PM: Starting build script
+4:13:05 PM: Section completed: initializing
+4:13:06 PM: ​
+4:13:06 PM: Netlify Build                                                 
+4:13:06 PM: ────────────────────────────────────────────────────────────────
+4:13:06 PM: ​
+4:13:06 PM: ❯ Version
+4:13:06 PM:   @netlify/build 35.11.1
+4:13:06 PM: ​
+4:13:06 PM: ❯ Flags
+4:13:06 PM:   accountId: 6651cb8d9c181f31618e1561
+4:13:06 PM:   baseRelDir: true
+4:13:06 PM:   buildId: 69c3ed5b7791fc60a3b7f39c
+4:13:06 PM:   deployId: 69c3ed5b7791fc60a3b7f39e
+4:13:06 PM:   packagePath: artifacts/admin
+4:13:07 PM: Failed during stage 'building site': Build script returned non-zero exit code: 2 (https://ntl.fyi/exit-code-2)
+4:13:07 PM: ​
+4:13:07 PM: ❯ Current directory
+4:13:07 PM:   /opt/build/repo
+4:13:07 PM: ​
+4:13:07 PM: ❯ Config file
+4:13:07 PM:   /opt/build/repo/artifacts/admin/netlify.toml
+4:13:07 PM: ​
+4:13:07 PM: ❯ Context
+4:13:07 PM:   production
+4:13:07 PM: ​
+4:13:07 PM: build.command from netlify.toml                               
+4:13:07 PM: ────────────────────────────────────────────────────────────────
+4:13:07 PM: ​
+4:13:07 PM: $ cd ../../ && pnpm install --frozen-lockfile && pnpm --filter @workspace/admin run build
+4:13:07 PM:  ERR_PNPM_NO_PKG_MANIFEST  No package.json found in /opt
+4:13:07 PM: ​
+4:13:07 PM: "build.command" failed                                        
+4:13:07 PM: ────────────────────────────────────────────────────────────────
+4:13:07 PM: ​
+4:13:07 PM:   Error message
+4:13:07 PM:   Command failed with exit code 1: cd ../../ && pnpm install --frozen-lockfile && pnpm --filter @workspace/admin run build (https://ntl.fyi/exit-code-1)
+4:13:07 PM: ​
+4:13:07 PM:   Error location
+4:13:07 PM:   In build.command from netlify.toml:
+4:13:07 PM:   cd ../../ && pnpm install --frozen-lockfile && pnpm --filter @workspace/admin run build
+4:13:07 PM: ​
+4:13:07 PM:   Resolved config
+4:13:07 PM:   build:
+4:13:07 PM:     command: cd ../../ && pnpm install --frozen-lockfile && pnpm --filter
+4:13:07 PM:       @workspace/admin run build
+4:13:07 PM:     commandOrigin: config
+4:13:07 PM:     environment:
+4:13:07 PM:       - NODE_VERSION
+4:13:07 PM:       - PORT
+4:13:07 PM:       - BASE_PATH
+4:13:07 PM:       - NODE_ENV
+4:13:07 PM:     publish: /opt/build/repo/dist/public
+4:13:07 PM:     publishOrigin: config
+4:13:07 PM:   redirects:
+4:13:07 PM:     - force: true
+4:13:07 PM:       from: /api/*
+      status: 200
+      to: https://YOUR_API_SERVER_URL/api/:splat
+    - from: /*
+      status: 200
+      to: /index.html
+  redirectsOrigin: config
+4:13:07 PM: Build failed due to a user error: Build script returned non-zero exit code: 2
+4:13:07 PM: Failing build: Failed to build site
+4:13:08 PM: Finished processing build request in 24.044s
