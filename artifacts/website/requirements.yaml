@@ -1,0 +1,19 @@
+packages:
+  "framer-motion": "For page transitions and elegant scroll animations"
+  "clsx": "For conditional class names merging"
+  "tailwind-merge": "For merging tailwind classes in components"
+
+images:
+  - path: "artifacts/website/public/images/hero.png"
+    description: "Elegant premium seafood restaurant table spread, warm lighting, nautical coastal theme, luxurious dining atmosphere, high-end food photography"
+    aspect_ratio: "16:9"
+  - path: "artifacts/website/public/images/about.png"
+    description: "Upscale coastal restaurant interior, modern nautical decor, warm glowing lights, elegant dining tables with a subtle ocean view"
+    aspect_ratio: "16:9"
+  - path: "artifacts/website/public/images/pattern.png"
+    description: "Subtle abstract wave pattern, seamless texture, light warm sand colors, extremely minimal and elegant"
+    aspect_ratio: "16:9"
+
+notes:
+  - Using generated API hooks from @workspace/api-client-react
+  - Implementing an elegant coastal/nautical theme for the restaurant
