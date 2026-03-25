@@ -232,7 +232,7 @@ export default function HomePage({ onAuthRequired: _onAuthRequired }: { onAuthRe
             {[
               { icon: <Star size={18} fill="#F59E0B" color="#F59E0B" />, value: "4.9", label: t("rating") },
               { icon: <Clock size={18} color="var(--primary)" />, value: "25–40 min", label: t("deliveryTime") },
-              { icon: <Store size={18} color="var(--primary)" />, value: "3", label: t("branches") },
+              { icon: <Store size={18} color="var(--primary)" />, value: "4", label: t("branches") },
               { icon: <Users size={18} color="var(--primary)" />, value: "10,000+", label: t("happyCustomers") },
             ].map((s, i) => (
               <div key={i} style={{
