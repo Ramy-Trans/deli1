@@ -1,32 +1,31 @@
 # ─── Sea Gull Restaurant — Admin Dashboard ────────────────────────────────────
-# Netlify site settings:
+# Netlify site → Build & Deploy → Build settings:
 #   Base directory  →  artifacts/admin
-#   (Build command and publish dir are read from this file)
+#   Build command   →  (leave blank — read from this file)
+#   Publish dir     →  (leave blank — read from this file)
 # ──────────────────────────────────────────────────────────────────────────────
 
 [build]
-  # Go up to the monorepo root, install all workspace deps, then build this app.
   command = "cd ../../ && pnpm install --frozen-lockfile && pnpm --filter @workspace/admin run build"
-  # publish is relative to the base directory (artifacts/admin)
   publish = "dist/public"
 
 [build.environment]
   NODE_VERSION = "20"
-  BASE_PATH = "/"
+  PORT         = "3000"
+  BASE_PATH    = "/"
 
 # ── API proxy ─────────────────────────────────────────────────────────────────
-# After you deploy your API server (Railway / Render / Fly.io / etc.),
-# replace YOUR_API_SERVER_URL with its public URL, e.g. https://api.seagull.app
+# Replace YOUR_API_SERVER_URL with your live API server URL before deploying.
 [[redirects]]
-  from = "/api/*"
-  to = "https://YOUR_API_SERVER_URL/api/:splat"
+  from   = "/api/*"
+  to     = "https://YOUR_API_SERVER_URL/api/:splat"
   status = 200
-  force = true
+  force  = true
 
 # ── SPA catch-all ─────────────────────────────────────────────────────────────
 [[redirects]]
-  from = "/*"
-  to = "/index.html"
+  from   = "/*"
+  to     = "/index.html"
   status = 200
 
 [context.production.environment]
