@@ -232,7 +232,12 @@ router.get("/riders", requireAdmin, async (req, res) => {
         const [branch] = rider.branchId
           ? await db.select().from(branchesTable).where(eq(branchesTable.id, rider.branchId)).limit(1)
           : [null];
-        return { ...rider, user, branch };
+        return {
+          ...rider,
+          phone: rider.phone ?? user?.phone ?? null,
+          user,
+          branch,
+        };
       })
     );
 
