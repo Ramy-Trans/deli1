@@ -121,8 +121,8 @@ export default function HomePage({ onAuthRequired: _onAuthRequired }: { onAuthRe
 
   useEffect(() => {
     Promise.all([
-      fetch("/api/categories").then((r) => r.json()).catch(() => []),
-      fetch("/api/products?featured=true").then((r) => r.json()).catch(() => []),
+      fetch(`${import.meta.env.VITE_API_URL ?? ""}/api/categories`).then((r) => r.json()).catch(() => []),
+      fetch(`${import.meta.env.VITE_API_URL ?? ""}/api/products?featured=true`).then((r) => r.json()).catch(() => []),
     ]).then(([cats, prods]) => {
       setCategories(Array.isArray(cats) ? cats : []);
       const p = Array.isArray(prods) ? prods : prods?.products ?? [];

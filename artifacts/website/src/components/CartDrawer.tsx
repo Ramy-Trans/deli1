@@ -25,7 +25,7 @@ export default function CartDrawer({ onClose, onAuthRequired }: CartDrawerProps)
     if (!couponInput.trim()) return;
     setCouponError(""); setCouponLoading(true);
     try {
-      const res = await fetch(`/api/coupons/validate`, {
+      const res = await fetch(`${import.meta.env.VITE_API_URL ?? ""}/api/coupons/validate`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ code: couponInput.trim().toUpperCase(), orderAmount: subtotal }),

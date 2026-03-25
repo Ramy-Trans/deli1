@@ -30,7 +30,7 @@ export default function OrdersPage({ onAuthRequired }: { onAuthRequired: () => v
 
   useEffect(() => {
     if (!isAuthed) { onAuthRequired(); setLoading(false); return; }
-    fetch("/api/orders", { headers: { Authorization: `Bearer ${token}` } })
+    fetch(`${import.meta.env.VITE_API_URL ?? ""}/api/orders`, { headers: { Authorization: `Bearer ${token}` } })
       .then((r) => r.json())
       .then((d) => setOrders(Array.isArray(d) ? d : d?.orders ?? []))
       .catch(() => {})

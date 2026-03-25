@@ -1,9 +1,11 @@
+export const API_BASE: string = (import.meta.env.VITE_API_URL as string) ?? "";
+
 export function getToken() {
   return localStorage.getItem("admin_token") ?? "";
 }
 
 export async function apiFetch(path: string, options?: RequestInit) {
-  const res = await fetch(path, {
+  const res = await fetch(`${API_BASE}${path}`, {
     ...options,
     headers: {
       "Content-Type": "application/json",
@@ -37,7 +39,7 @@ export function logoutRider() {
 }
 
 export async function riderFetch(path: string, options?: RequestInit) {
-  const res = await fetch(path, {
+  const res = await fetch(`${API_BASE}${path}`, {
     ...options,
     headers: {
       "Content-Type": "application/json",

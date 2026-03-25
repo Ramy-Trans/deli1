@@ -40,7 +40,7 @@ export default function ProductModal({ productId, onClose }: Props) {
 
   useEffect(() => {
     setLoading(true);
-    fetch(`/api/products/${productId}`)
+    fetch(`${import.meta.env.VITE_API_URL ?? ""}/api/products/${productId}`)
       .then((r) => r.json())
       .then((data) => {
         setProduct(data);

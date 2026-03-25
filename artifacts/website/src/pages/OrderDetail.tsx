@@ -195,7 +195,7 @@ export default function OrderDetailPage() {
   const joinedRef = useRef(false);
 
   const fetchOrder = (quiet = false) =>
-    fetch(`/api/orders/${params?.id}`, { headers: { Authorization: `Bearer ${token}` } })
+    fetch(`${import.meta.env.VITE_API_URL ?? ""}/api/orders/${params?.id}`, { headers: { Authorization: `Bearer ${token}` } })
       .then((r) => r.json())
       .then((data) => {
         setOrder(data);
@@ -213,7 +213,10 @@ export default function OrderDetailPage() {
     if (!params?.id) return;
     const connect = () => {
       joinedRef.current = false;
-      const wsUrl = `${window.location.protocol === "https:" ? "wss" : "ws"}://${window.location.host}/api/socket.io/?EIO=4&transport=websocket`;
+      const apiBase = (import.meta.env.VITE_API_URL as string) ?? "";
+      const wsUrl = apiBase
+        ? `${apiBase.replace(/^http/, "ws")}/api/socket.io/?EIO=4&transport=websocket`
+        : `${window.location.protocol === "https:" ? "wss" : "ws"}://${window.location.host}/api/socket.io/?EIO=4&transport=websocket`;
       const ws = new WebSocket(wsUrl);
       wsRef.current = ws;
       ws.onmessage = (evt) => {

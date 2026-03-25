@@ -6,6 +6,8 @@
   NODE_VERSION = "20"
   PORT         = "3000"
   BASE_PATH    = "/"
+  # Set VITE_API_URL in Netlify dashboard → Site config → Environment variables
+  # Example: https://your-api-server.replit.app
 
 [[redirects]]
   from   = "/api/*"

@@ -21,7 +21,7 @@ export default function CheckoutPage() {
 
   useEffect(() => {
     if (!token) { setLoc("/"); return; }
-    fetch("/api/branches").then((r) => r.json()).then((b) => {
+    fetch(`${import.meta.env.VITE_API_URL ?? ""}/api/branches`).then((r) => r.json()).then((b) => {
       setBranches(Array.isArray(b) ? b : []);
       if (b?.[0]) setSelectedBranch(b[0].id);
     }).catch(() => {});
@@ -45,7 +45,7 @@ export default function CheckoutPage() {
         couponId: coupon?.couponId ?? null,
         items: items.map((i) => ({ productId: i.productId, quantity: i.quantity, variantId: null, addOnIds: [] })),
       };
-      const res = await fetch("/api/orders", {
+      const res = await fetch(`${import.meta.env.VITE_API_URL ?? ""}/api/orders`, {
         method: "POST",
         headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
         body: JSON.stringify(body),

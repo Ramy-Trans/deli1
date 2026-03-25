@@ -19,7 +19,7 @@ export default function AuthModal({ onClose }: AuthModalProps) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
-  const BASE = import.meta.env.BASE_URL.replace(/\/$/, "");
+  const API = (import.meta.env.VITE_API_URL as string) ?? "";
 
   const sendOtp = async () => {
     setError("");
@@ -30,7 +30,7 @@ export default function AuthModal({ onClose }: AuthModalProps) {
     }
     setLoading(true);
     try {
-      const res = await fetch(`${BASE}/api/auth/send-otp`, {
+      const res = await fetch(`${API}/api/auth/send-otp`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ phone: trimmed }),
@@ -53,7 +53,7 @@ export default function AuthModal({ onClose }: AuthModalProps) {
     try {
       const body: Record<string, string> = { phone: phone.trim(), otp };
       if (name.trim()) body.name = name.trim();
-      const res = await fetch(`${BASE}/api/auth/verify-otp`, {
+      const res = await fetch(`${API}/api/auth/verify-otp`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(body),

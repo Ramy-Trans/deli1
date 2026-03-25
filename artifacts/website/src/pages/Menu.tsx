@@ -53,12 +53,12 @@ export default function MenuPage() {
   const [modalProductId, setModalProductId] = useState<number | null>(null);
 
   useEffect(() => {
-    fetch("/api/categories").then((r) => r.json()).then(setCategories).catch(() => {});
+    fetch(`${import.meta.env.VITE_API_URL ?? ""}/api/categories`).then((r) => r.json()).then(setCategories).catch(() => {});
   }, []);
 
   const loadProducts = useCallback(async () => {
     setLoading(true);
-    let url = "/api/products?limit=200";
+    let url = `${import.meta.env.VITE_API_URL ?? ""}/api/products?limit=200`;
     if (selectedCat) url += `&categoryId=${selectedCat}`;
     if (search) url += `&search=${encodeURIComponent(search)}`;
     try {
