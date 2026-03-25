@@ -55,7 +55,7 @@ export default function RiderLoginPage() {
           display: "flex", alignItems: "center", justifyContent: "center",
           boxShadow: "0 8px 32px rgba(0,0,0,0.3)", overflow: "hidden",
         }}>
-          <img src="/admin/logo.png" alt="Seagull" style={{ width: "70%", height: "70%", objectFit: "contain" }} />
+          <img src={`${import.meta.env.BASE_URL}logo.png`} alt="Seagull" style={{ width: "70%", height: "70%", objectFit: "contain" }} />
         </div>
         <div style={{ textAlign: "center" }}>
           <div style={{ fontSize: "clamp(22px, 6vw, 28px)", fontWeight: 800, color: "#fff", letterSpacing: -0.5 }}>Rider Portal</div>

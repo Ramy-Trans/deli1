@@ -50,7 +50,7 @@ export default function DashboardPage() {
               background: "rgba(255,255,255,0.12)", border: "1.5px solid rgba(212,175,55,0.4)",
               display: "flex", alignItems: "center", justifyContent: "center", overflow: "hidden",
             }}>
-              <img src="/admin/logo.png" alt="Seagull" style={{ width: 34, height: 34, objectFit: "contain" }} />
+              <img src={`${import.meta.env.BASE_URL}logo.png`} alt="Seagull" style={{ width: 34, height: 34, objectFit: "contain" }} />
             </div>
             <div>
               <div style={{ fontSize: 20, fontWeight: 800, color: "#fff", letterSpacing: -0.3 }}>Seagull Admin</div>
