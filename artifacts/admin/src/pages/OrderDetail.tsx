@@ -186,7 +186,7 @@ export default function OrderDetailPage() {
                 <div style={{ flex: 1 }}>
                   <div style={{ fontSize: 15, fontWeight: 700, color: "#fff" }}>{order.rider.user?.name}</div>
                   <div style={{ fontSize: 12, color: "rgba(255,255,255,0.4)", marginTop: 2 }}>
-                    {order.rider.user?.phone} · {order.rider.vehicleType}
+                    {order.rider.phone ?? order.rider.user?.phone} · {order.rider.vehicleType}
                   </div>
                 </div>
                 <button
@@ -287,7 +287,7 @@ export default function OrderDetailPage() {
                 </div>
                 <div style={{ flex: 1 }}>
                   <div style={{ fontSize: 14, fontWeight: 600, color: "#fff" }}>{rider.user?.name}</div>
-                  <div style={{ fontSize: 11, color: "rgba(255,255,255,0.4)" }}>{rider.vehicleType} · {rider.user?.phone}</div>
+                  <div style={{ fontSize: 11, color: "rgba(255,255,255,0.4)" }}>{rider.vehicleType} · {rider.phone ?? rider.user?.phone}</div>
                 </div>
                 {order.riderId === rider.id && <CheckSelected />}
               </div>

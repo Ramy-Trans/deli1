@@ -329,7 +329,7 @@ function RiderCard({ rider, expanded, onToggle, onStatus, onDelete, onResetPw, s
               )}
             </div>
             <div style={{ fontSize: 12, color: "rgba(255,255,255,0.35)" }}>
-              {rider.user?.phone ?? ""} · {rider.vehicleType}{rider.vehiclePlate ? ` · ${rider.vehiclePlate}` : ""}
+              {rider.phone ?? rider.user?.phone ?? ""} · {rider.vehicleType}{rider.vehiclePlate ? ` · ${rider.vehiclePlate}` : ""}
             </div>
           </div>
 
